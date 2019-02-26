@@ -1,2 +1,4 @@
 data
 lib
+.ipynb_checkpoints/
+include/__pycache__/
