@@ -20,6 +20,8 @@ class FilterNMostCommon(BaseEstimator, TransformerMixin):
                     self.values_that_stay.append(vc_ratio.index[idx])
                 else:
                     break
+        else:
+            self.values_that_stay = value_counts.index
 
         return self
 
@@ -27,5 +29,7 @@ class FilterNMostCommon(BaseEstimator, TransformerMixin):
         if self.copy:
             X = X.copy()
         X[self.attribute_name] = [
-            val if val in self.values_that_stay else 'Other' for val in X[self.attribute_name]]
+            val if val in self.values_that_stay else 'Other' for val in X[self.attribute_name]
+        ]
+
         return X
