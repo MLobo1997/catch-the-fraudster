@@ -11,10 +11,12 @@ class UserEvaluator(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         for row in X.itertuples(index = False):
             user = row[self.col_names.index('user_id')]
+            id_num = row[self.col_names.index('id')]
             datetime = row[self.col_names.index('datetime')]
             amount = row[self.col_names.index('amount')]
             self.transactions.insertTransaction(
                 user,
+                id_num,
                 datetime,
                 amount,
             )
