@@ -19,8 +19,12 @@ class TransactionsPerDate():
             self.transactions[user][datetime.date()] = sumTuples(user_day_content, new_values)
     
     def getTransactionAveragesExceptDay(self, user, datetime):
-        user_transaction_measures = deepcopy(self.transactions[user])
-        del user_transaction_measures[datetime.date()]
+        curr_date = datetime.date()
+        user_transaction_measures = {}
+        for date in self.transactions[user]:
+            if date < curr_date:
+                user_transaction_measures[date]  = self.transactions[user][date]
+
         N = len(user_transaction_measures)
         if N != 0:
             tuple_sum = (0,0)

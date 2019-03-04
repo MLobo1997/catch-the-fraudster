@@ -16,16 +16,15 @@ class UserEvaluator(BaseEstimator, TransformerMixin):
         self.N_attribute_name = N_attribute_name
         self.amount_attribute_name = amount_attribute_name
         if use_card:
-            self.user_attr='user_id'
-        else:
             self.user_attr='card_id'
+        else:
+            self.user_attr='user_id'
 
     def createTransactions(self, X):
-        names = list(X)
-        for row in X.itertuples(index=False):
-            user = row[names.index(self.user_attr)]
-            datetime = row[names.index('datetime')]
-            amount = row[names.index('amount')]
+        for row in X[[self.user_attr, 'datetime', 'amount']].itertuples(index=False):
+            user = row[0]
+            datetime = row[1]
+            amount = row[2]
             self.transactions.insertTransaction(
                 user,
                 datetime,
@@ -53,5 +52,5 @@ class UserEvaluator(BaseEstimator, TransformerMixin):
 
         a, b = zip(*new_attr)
         X[self.N_attribute_name], X[self.amount_attribute_name] = list(a), list(b)
-
+        #X[self.N_attribute_name], X[self.amount_attribute_name] = zip(*new_attr)
         return X
