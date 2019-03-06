@@ -22,7 +22,7 @@ class TransactionsPerDate():
         curr_date = datetime.date()
         user_transaction_measures = {}
         for date in self.transactions[user]:
-            if date < curr_date:
+            if date <= curr_date:
                 user_transaction_measures[date]  = self.transactions[user][date]
 
         N = len(user_transaction_measures)
