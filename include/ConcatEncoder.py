@@ -38,7 +38,7 @@ def concat(X, attributes):
     attributes = attributes[1:]
 
     for attr in attributes:
-        concats = [a + '-' + b for a,b in zip(concats, X[attr])]
+        concats = [str(a) + '-' + str(b) for a,b in zip(concats, X[attr])]
 
     return concats
 
@@ -79,7 +79,11 @@ class ConcatEncoder(BaseEstimator, TransformerMixin):
         
         concats = concat(X, self.attributes)
 
-        other_index = self.rank.index('Other')
+        try:
+            other_index = self.rank.index('Other')
+        except ValueError:
+            other_index = None
+
         l = []
         for value in concats:
             try:
