@@ -45,8 +45,6 @@ def concat(X, attributes):
 class ConcatEncoder(BaseEstimator, TransformerMixin):
     #This is not optimal if you want to concatenate many columns
     def __init__(self, attributes, attr_name, min_rel_freq=None, order_by_class=True, drop_old = True, copy=True):
-        if len(attributes) < 2:
-            raise ValueError('There need to be more than 1 attribute.')
         self.attributes = attributes
         self.copy = copy
         self.attr_name = attr_name
